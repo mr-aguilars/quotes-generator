@@ -1,4 +1,4 @@
-const quoteContainer = document.getElementById('quote-generator');
+const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
@@ -7,22 +7,21 @@ const loader = document.getElementById('loader');
 
 let apiQuotes = [];
 
-// Currently Trying to incorporate a loader
-// // Show Loading
-// function loading() {
-//     loader.hidden = false;
-//     quoteContainer.hidden = true;
-// }
-
-// // Hide Loading
-// function complete() {
-//     quoteContainer.hidden = false;
-//     loader.hidden = true;
-// }
+// Loading Spinner Shown
+function loading() {
+    loader.hidden = false;
+    quoteContainer.hidden = true;
+}
+  
+  // Remove Loading Spinner
+function complete() {
+    quoteContainer.hidden = false;
+    loader.hidden = true;
+}
 
 // Show New Quote
 function newQuote() {
-    // loading();
+    loading();
     // Picking a new random Quote here
     const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
     // Check for null value
@@ -39,12 +38,12 @@ function newQuote() {
     }
     // Set Quote, Hide loader
     quoteText.textContent = quote.text;
-    // complete();
+    complete();
 }
 
 // Connecting with API to get Quotes
 async function getQuotes() {
-    // loading();
+    loading();
     const apiUrl = 'https://type.fit/api/quotes';
     try {
       const response = await fetch(apiUrl);
